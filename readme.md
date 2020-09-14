@@ -1,31 +1,63 @@
-# This VUE Template
+# Project Proposal - Frontend Development
 
-## Setup
+## Live Website
+...
 
-- Fork This Repo on Github
+## Project Schedule
 
-- Clone it to your computer
+|  Day | Deliverable | Status
+|---|---| ---|
+|Day 1| Project Description | Incomplete
+|Day 1| Wireframes / Priority Matrix / Timeline `backend` and `frontend`| Incomplete
+|Day 2| Working RestAPI | Incomplete
+|Day 3| Core Application Structure (HTML, CSS, etc.) | Incomplete
+|Day 4| MVP & Bug Fixes | Incomplete
+|Day 5| Final Touches and Present | Incomplete
 
-- cd into folder
+## Project Description
+The purpose of this project is to create a full CRUD application to track how much meat a user consumes in a week, for people who want to transition to a healther, more sustainable lifestyle.
 
-- Remove the remote (```git remote rm origin```)
+For the frontend application, 
 
-- run ```npm install```
 
-## Project Reference
+## Time/Priority Matrix 
+- [Graphic](...)
 
-This Template includes
 
-- Vue (https://vuejs.org/v2/guide/)
+## MVP/Post MVP
 
-- Vue Router (https://router.vuejs.org/)
+#### MVP
+- 
 
-- Buefy (https://buefy.org/)
+#### Post MVP
+- 
 
-## Template Features
+## Functional Components
 
-- Premade header and footer component using Buefy/Bulma, put your router links in the header component, customize these to your likings to give your page a consistent layout
+#### MVP
+| Component | Priority | Estimated Time | Time Invetsted | Actual Time |
+| --- | :---: |  :---: | :---: | :---: |
+| Research and Development| H | 5 hrs | 1 hr | - hrs |
 
-- Router routes are defined in the router folder, create your pages in the views folder
+| Debugging| H | 7 hrs | - hrs |  - hrs |
+| Deployment| H | 1 hr | 30 mins | - hrs |
+| Total | - | 44.5 hrs | - hrs | - hrs |
 
-- In the components folder there is a Template.vue which can be copied to make new components
+
+#### Post MVP
+| Component | Priority | Estimated Time | Time Invetsted | Actual Time |
+| --- | :---: |  :---: | :---: | :---: |
+
+| Total | 4 hrs | -hr | -hr | -hr |
+
+## Additional Libraries
+- Vue.js and Vue CLI (for connecting the frontend and the backend)
+- Bootstrap (for models, sliding scales, and styling)
+
+## Code Snippets
+
+...
+
+## Issues and Resolutions
+ 
+...
