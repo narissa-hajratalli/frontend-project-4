@@ -78,6 +78,7 @@ For the frontend application,
 ## Additional Libraries
 - Vue.js and Vue CLI (for connecting the frontend and the backend)
 - Bootstrap (for models, sliding scales, and styling)
+- Canva (for logo)
 - [Additional Resources](https://docs.google.com/spreadsheets/d/1laHGT9kh-9N0061Kmw5pyd3lF4BJ7Na-DrvCe5UXskQ/edit#gid=0)
 
 ## Code Snippets
