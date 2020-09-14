@@ -21,7 +21,7 @@ For the frontend application,
 
 
 ## Time/Priority Matrix 
-- [Graphic](...)
+- [Graphic](https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600052787/Project%203%20-%20leaft/IMG_1542_gzw2vb.heic)
 
 ## Wireframes 
 - [Desktop](https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600050334/Project%203%20-%20leaft/Desktop_v5v1hv.png)
