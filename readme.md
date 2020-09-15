@@ -15,7 +15,7 @@
 |Day 5| Final Touches and Present | Incomplete
 
 ## Project Description
-The purpose of this project is to create a full CRUD application to track how much meat a user consumes in a week, for people who want to transition to a healther, more sustainable lifestyle.
+The purpose of this project is to create a full CRUD application to track how much meat a user consumes in a week, for people who want to transition to a healthier, more sustainable lifestyle.
 
 For the frontend application, I would like to have a weekly tracker so the user can see which day of the week they consumed meat. I also want to have a daily traker to monitor their daily intake.
 
