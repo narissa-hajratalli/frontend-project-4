@@ -6,7 +6,7 @@
       <b-field label="Password">
           <b-input type="password" value="" placeholder="password"></b-input>
       </b-field>
-      <button>Login</button>
+      <button v-on:click="handleLogin">Login</button>
   </div>
   
 
@@ -17,5 +17,30 @@
 
 export default {
   name: 'Login',
+  data: function() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    handleLogin: function() {
+      fetch("http://localhost:8000/auth/users/login/",  {
+        method: 'post',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({
+          username: this.username,
+          password: this.password
+        }),
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+    }
+
+
+  
+  }
 }
 </script>

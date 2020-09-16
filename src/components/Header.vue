@@ -33,7 +33,7 @@
               <router-link to="/signup">Sign Up</router-link>
             </a>
             <a class="button is-light">
-              <router-link to="/login">Login</router-link>
+              <router-link to="/login" v-bind:URL="URL">Login</router-link>
             </a>
           </div>
         </b-navbar-item>

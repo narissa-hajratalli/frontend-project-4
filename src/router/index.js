@@ -17,7 +17,8 @@ Vue.use(VueRouter)
   {
     path: '/Login',
     name: 'Login',
-    component: Login
+    component: Login,
+    props: true
   },
   {
     path: '/AboutSustainability',

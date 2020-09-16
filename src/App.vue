@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Header/>
+      <Header v-bind:URL="URL"/>
 
       
     </div>
@@ -23,7 +23,8 @@ export default {
   data:function(){
     return {
       loggedIn: false,
-      token: ''
+      token: '',
+      URL: 'http://localhost:8000'
     }
   } 
   
