@@ -19,9 +19,15 @@ export default {
   components: {
     Header,
     Footer
-  }
+  },
+  data:function(){
+    return {
+      loggedIn: false,
+      token: ''
+    }
+  } 
   
-}
+} 
 </script>
 
 <style>
