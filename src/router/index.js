@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Page2 from '../views/Page2.vue'
+import Login from '../views/Login.vue'
+import AboutSustainability from '../views/AboutSustainability.vue'
+import About from '../views/About.vue'
 
 Vue.use(VueRouter)
 
@@ -12,9 +14,19 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/page2',
-    name: 'Page2',
-    component: Page2
+    path: '/Login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/AboutSustainability',
+    name: 'AboutSustainability',
+    component: AboutSustainability
+  },
+  {
+    path: '/About',
+    name: 'About',
+    component: About
   },
 ]
 
