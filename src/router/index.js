@@ -5,12 +5,13 @@ import Login from '../views/Login.vue'
 import AboutSustainability from '../views/AboutSustainability.vue'
 import About from '../views/About.vue'
 import SignUp from '../views/SignUp.vue'
+import Main from '../views/Main.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -21,19 +22,24 @@ Vue.use(VueRouter)
     props: true
   },
   {
-    path: '/AboutSustainability',
+    path: '/aboutsustainability',
     name: 'AboutSustainability',
     component: AboutSustainability
   },
   {
-    path: '/About',
+    path: '/about',
     name: 'About',
     component: About
   },
   {
-    path: '/SignUp',
+    path: '/signup',
     name: 'SignUp',
     component: SignUp
+  },
+  {
+    path: '/main',
+    name: 'Main',
+    component: Main
   },
 ]
 

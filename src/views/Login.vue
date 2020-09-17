@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     handleLogin: function() {
-      fetch("http://localhost:8000/auth/users/login/",  {
+      fetch(`${this.$route.query.URL}/auth/users/login/`,  {
         method: 'post',
         headers: {
           "Content-Type": "application/json"

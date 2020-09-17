@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <Header v-bind:URL="URL" v-bind:loggedIn="loggedIn" @logout="logout"/> <!-- Header is a component and it is basically inserted as if it were an html tag-->
-    </div>
+    <Header v-bind:URL="URL" v-bind:loggedIn="loggedIn" @logout="logout"/> <!-- Header is a component and it is basically inserted as if it were an html tag-->
     <router-view @loggedIn="login($event)"/>
     <Footer/>
   </div>
@@ -47,7 +45,7 @@ export default {
       console.log('event heard')
       this.loggedIn = true
       this.tokens = event
-      this.$router.push('/')
+      this.$router.push({ path: "Home", query: { tokens: this.tokens } })
     },
     logout: function(){
       this.loggedIn = false;
@@ -57,9 +55,6 @@ export default {
   
 } 
 </script>
-
-
-
 
 
 <style>
