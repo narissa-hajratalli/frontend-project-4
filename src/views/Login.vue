@@ -1,12 +1,9 @@
 <template>
   <div class="login">
-      <b-field label="Username">
-          <b-input type='username' value="" placeholder="username"></b-input>
-      </b-field>
-      <b-field label="Password">
-          <b-input type="password" value="" placeholder="password"></b-input>
-      </b-field>
-      <button @click="handleLogin">Login</button>
+      <input class='input is-primary' type="text" v-model="username"/>
+      <input class='input is-primary' type="password" v-model="password"/>
+      <br/>
+      <button class="button is-danger" @click="handleLogin">Login</button>
   </div>
   
 
@@ -49,12 +46,9 @@ export default {
           alert('Incorrect Login')
         }
       })
-    }
-  
+    },
+////// MORE FUNCTIONS HERE ////
 
-
-
-
-  }
+  },
 }
 </script>

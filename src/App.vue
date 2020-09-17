@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Header v-bind:URL="URL" @loggedIn="login($event)"/>
-
-      
+      <Header v-bind:URL="URL"/>
     </div>
-    <router-view/>
+    <router-view @loggedIn="login($event)"/>
     <Footer/>
   </div>
 </template>
@@ -29,6 +27,7 @@ export default {
   },
   methods: {
     login: function(event){
+      console.log('event heard')
       this.loggedIn = true
       this.tokens = event
       this.$router.push('/')
