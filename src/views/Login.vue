@@ -6,14 +6,13 @@
       <b-field label="Password">
           <b-input type="password" value="" placeholder="password"></b-input>
       </b-field>
-      <button v-on:click="handleLogin">Login</button>
+      <button @click="handleLogin">Login</button>
   </div>
   
 
 </template>
 
 <script>
-
 
 export default {
   name: 'Login',
@@ -35,12 +34,27 @@ export default {
           password: this.password
         }),
       })
-      .then(response => response.json())
-      .then(data => console.log(data))
+      .then(response => {
+        if (response.status != 200) {
+          response.json()
+        } else {
+          return response.json()
+        }
+      })
+      .then(data => {
+        console.log('data', data)
+        if(data){
+          this.$emit('loggedIn', data)
+        } else {
+          alert('Incorrect Login')
+        }
+      })
     }
-
-
   
+
+
+
+
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Header v-bind:URL="URL"/>
+      <Header v-bind:URL="URL" @loggedIn="login($event)"/>
 
       
     </div>
@@ -23,10 +23,17 @@ export default {
   data:function(){
     return {
       loggedIn: false,
-      token: '',
+      tokens: {},
       URL: 'http://localhost:8000'
     }
-  } 
+  },
+  methods: {
+    login: function(event){
+      this.loggedIn = true
+      this.tokens = event
+      this.$router.push('/')
+    }
+  }
   
 } 
 </script>
