@@ -1,13 +1,13 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ msg }}</h1> <!-- msg is a prop! -->
   </div>
 </template>
 
 <script>
 export default {
   name: "HelloWorld",
-  props: ["msg"],
+  props: ["msg"], // msg is being exported here, can be used in App.vue
 };
 </script>
 

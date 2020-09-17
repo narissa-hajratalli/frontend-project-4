@@ -42,3 +42,5 @@ const router = new VueRouter({
 })
 
 export default router
+
+// These routes are exported to our main.js

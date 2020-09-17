@@ -1,7 +1,17 @@
 <template>
   <div class="login">
-      <input class='input is-primary' type="text" v-model="username"/>
-      <input class='input is-primary' type="password" v-model="password"/>
+   <b-field label="Username"
+            type="is-success"
+            message="This username is available">
+            <b-input v-model="username"></b-input>
+        </b-field>
+
+        <b-field label="Password">
+            <b-input type="password"
+                v-model="password"
+                password-reveal>
+            </b-input>
+        </b-field>
       <br/>
       <button class="button is-danger" @click="handleLogin">Login</button>
   </div>
@@ -52,3 +62,11 @@ export default {
   },
 }
 </script>
+
+
+<style>
+  .login {
+    width: 40%;
+    margin: 10px auto
+  }
+</style>
