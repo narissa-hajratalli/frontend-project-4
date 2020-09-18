@@ -1,11 +1,10 @@
 <template v-if="loggedIn">
   <div class="home">
-    <h1> HOME PAGE</h1>
-    <ul>
-      <li v-for="dailyLog of dailyLogs" v-bind:key="dailyLog.id">{{ dailyLog.daily_servings }}</li>
-    </ul>
+    <h1> leaft </h1>
 
-    <!-- DROPDOWN MENU CONTAINING EACH WEEK --> 
+<!---------------------------------------------------------------------------------------------------------------> 
+
+    <!----------- DROPDOWN MENU CONTAINING EACH WEEK ----------> 
     <section>
         <b-field label="Select a Weekly Log">
             <b-select placeholder="Select a week">
@@ -21,22 +20,66 @@
                     <!-- the word "Week" to maintain consistent spelling -->  
                     {{ `Week ${week.week_number}` }}
                 </option>
-            </b-select><b-button type="is-success">Find</b-button><b-button type="is-success is-light">Add</b-button>
+            </b-select><b-button type="is-success" v-on:click="findDailyLogs" id="week.id">Find</b-button><b-button type="is-success is-light">Add</b-button>
         </b-field>
     </section>
-    
-    
+
+<!---------------------------------------------------------------------------------------------------------------> 
+
+      <!----------- DROPDOWN MENU CONTAINING EACH WEEK ----------> 
+        <section v-for="dailyLog of dailyLogs" v-bind:key="dailyLog.id" v-bind:id="dailyLog.id"> 
+          <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
+            <div
+                slot="trigger" 
+                slot-scope="props"
+                class="card-header"
+                role="button"
+                aria-controls="contentIdForA11y3">
+                <p class="card-header-title">
+                    {{ `Date: ${dailyLog.day_consumed}` }}
+                </p>
+                <a class="card-header-icon">
+                    <b-icon
+                        :icon="props.open ? 'menu-down' : 'menu-up'">
+                    </b-icon>
+                </a>
+            </div>
+            <div class="card-content">
+                <div class="content" v-bind:id="dailyLog.id">
+                  {{ 
+                  `
+                  Consumed meat?: ${dailyLog.consumed}
+                  Daily Servings: ${dailyLog.daily_servings}
+                  `
+                 }}
+                </div>
+            </div>
+            <footer class="card-footer">
+                <a class="card-footer-item" v-bind:id="dailyLog.id">Edit</a>
+                <a class="card-footer-item" v-bind:id="dailyLog.id">Delete</a>
+            </footer>
+        </b-collapse>
+      </section>
+
+<!--------------------------------------------------------------------------------------------------------------->
+
+    <!----------- DISPLAY WEEKLY TOTAL ---------->
+    <section id="weekly-total">
+      <h1>{{ `Your weekly total is `}}</h1>
+    </section> 
+
   </div>
 </template>
 
-<script>
 
+<script>
 export default {
   name: 'Home',
   data: function(){
     return {
       dailyLogs: [],
-      weeks: []
+      weeks: [],
+      week_id: null
     }
   },
   created: function(){
@@ -53,11 +96,20 @@ export default {
     .then(response => response.json())
     .then(data => {
       this.dailyLogs = data
+      console.log(data)
     })
+    //   const getLogin = JSON.parse(window.sessionStorage.getItem('login'))
+    //   if (getLogin) {
+    //   this.user = getLogin.user
+    //   this.token = getLogin.token
+    //   this.loggedin = true
+    // }
   },
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////// POPULATING THE WEEKS IN A DROPDOWN MENU //////
   //// beforeCreated: Called synchronously immediately after the instance has been initialized
+  //// want this to be before created so the weeks are already populated in the dropdown
   //// https://vuejs.org/v2/api/#created
   beforeCreate: function() {
     // Grabs the token and the URL
@@ -73,21 +125,47 @@ export default {
     .then(response => response.json())
     .then(data => {
       this.weeks = data
-      console.log(data)
+      // console.log(data)
     })
   },
 
-  /////// METHOD ASSOCIATE WITH THE BUTTON TO FIND THE DAILY LOGS FOR ONE WEEK /////
+/////////////////////////////// METHODS /////////////////////////////////////////
+
+  methods: {
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////// FIND ALL THE DAILY LOGS ASSOCIATED WITH ONE WEEK ///////////////
+  //// will be attached to the "Find" button in the form of an on-click event 
+    findDailyLogs: async function(event) {
+      // this.week_id = id
+    
+      // Grabs the token and the URL
+      // const {token, URL} = this.$route.query
+
+      // Grabing the id from the week
+      const id = event.target.id
+      console.log(id)
+
+      //API CALL - fetches the days in the database that belong to one week
+      // fetch(`${URL}/meat_consumption/weekly_consumption/${id}/daily_consumption`, {
+      //   method: 'get',
+      //   headers: {
+      //     'authorization': `JWT ${token}`
+      //   }
+      // })
+      // .then(response => response.json())
+      // .then(data => {
+      //   this.dailyLogs = data
+      //   console.log(data)
+      // })
+
+  }
 
 
-  ///// METHOD TO HAVE THE USER STAY LOGGED IN WHEN THEY REFRESH ///
-  stay_logged_in: function() {
-      const getLogin = JSON.parse(window.sessionStorage.getItem('login'))
-      if (getLogin) {
-      this.user = getLogin.user
-      this.token = getLogin.token
-      this.loggedin = true
-    }
+
+
+
   }
 }
+
 </script>
