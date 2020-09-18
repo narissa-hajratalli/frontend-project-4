@@ -1,6 +1,11 @@
 <template v-if="loggedIn">
   <div class="home">
     <h1> leaft </h1>
+<!---------------------------------------------------------------------------------------------------------------> 
+
+    <!----------- CREATE BUTTON AND MODAL ----------> 
+  
+
 
 <!---------------------------------------------------------------------------------------------------------------> 
 
@@ -56,7 +61,7 @@
             </div>
             <footer class="card-footer">
                 <a class="card-footer-item" v-bind:id="dailyLog.id">Edit</a>
-                <a class="card-footer-item" v-bind:id="dailyLog.id">Delete</a>
+                <a class="card-footer-item" v-bind:id="dailyLog.id" v-on:click="deleteLog">Delete</a>
             </footer>
         </b-collapse>
       </section>
@@ -159,13 +164,37 @@ export default {
       //   console.log(data)
       // })
 
+  },
+  /////////////////////////////////////////////////////////////////////////
+  //////////////// DELETE ONE DAILY LOG ///////////////
+  deleteLog: function(event){
+      // Destructuring the token and the URL from the request
+      const { token, URL } = this.$route.query;
+
+      // Grabbing the id from the delete button, which is the target
+      const id = event.target.id;
+
+      // Fetch request to the endpoint with the id on the delete button
+      fetch(`${URL}/meat_consumption/daily_consumption/${id}/`, {
+        method: "delete",
+        headers: {
+          'authorization': `JWT ${token}`,
+        },
+
+      // Delete method performed, then re-populate the screen with the remaining logs 
+      // so the user doesn't have to request
+      }).then(() => {
+        console.log("is deleted!") // NEED TO RERUN THE SHOW FUNCTION WHEN ITS DONE
+      });
+    },
+
   }
 
 
 
 
 
-  }
+
 }
 
 </script>
