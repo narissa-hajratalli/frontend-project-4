@@ -3,7 +3,7 @@
     <b-navbar>
       <template slot="brand">
         <b-navbar-item>
-          <span class="logo">leaft</span>
+          <router-link to="/"><span class="logo">leaft</span></router-link>
         </b-navbar-item>
       </template>
       <template slot="start">

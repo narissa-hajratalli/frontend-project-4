@@ -2,6 +2,7 @@
   <div id="app">
     <Header v-bind:URL="URL" v-bind:loggedIn="loggedIn" @logout="logout"/> <!-- Header is a component and it is basically inserted as if it were an html tag-->
     <router-view @loggedIn="login($event)"/>
+    <Weeks/>
     <Footer/>
   </div>
 </template>
@@ -13,6 +14,7 @@
 // importing components from their respective .vue files
 // so they can be used here
 import Header from './components/Header' 
+import Weeks from './components/Weeks' 
 import Footer from './components/Footer'
 
 // This is where the Vue instance will live
@@ -25,6 +27,7 @@ export default {
   // This "registers" the components
   components: {
     Header,
+    Weeks,
     Footer
   },
 
@@ -45,7 +48,7 @@ export default {
       console.log('event heard')
       this.loggedIn = true
       this.tokens = event
-      this.$router.push({ path: "Home", query: { tokens: this.tokens } })
+      this.$router.push({ path: "Home", query: { tokens: this.tokens, URL: this.URL } })
     },
     logout: function(){
       this.loggedIn = false;

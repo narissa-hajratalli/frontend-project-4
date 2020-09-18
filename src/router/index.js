@@ -37,7 +37,7 @@ Vue.use(VueRouter)
     component: SignUp
   },
   {
-    path: '/main',
+    path: '/',
     name: 'Main',
     component: Main
   },
