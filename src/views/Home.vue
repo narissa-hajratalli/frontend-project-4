@@ -9,8 +9,9 @@
 
 <!---------------------------------------------------------------------------------------------------------------> 
 
-    <!----------- DROPDOWN MENU CONTAINING EACH WEEK ----------> 
+    <!----------- DROPDOWN AREA ----------> 
     <section>
+        <!----------- Dropdown menu with weeks ----------> 
         <b-field label="Select a Weekly Log">
             <b-select placeholder="Select a week">
                 <!-- v-for directive loops over all the weeks in the database --> 
@@ -25,7 +26,13 @@
                     <!-- the word "Week" to maintain consistent spelling -->  
                     {{ `Week ${week.week_number}` }}
                 </option>
-            </b-select><b-button type="is-success" v-on:click="findDailyLogs" id="week.id">Find</b-button><b-button type="is-success is-light">Add</b-button>
+              </b-select>
+
+            <!----------- Find button ---------->                
+            <b-button type="is-success" v-on:click="findDailyLogs" id="week.id">Find</b-button>
+
+            <!----------- Add a week button ---------->  
+            <b-button type="is-success is-light" v-on:click="promptWeekNumber">Add</b-button>
         </b-field>
     </section>
 
@@ -84,7 +91,7 @@ export default {
     return {
       dailyLogs: [],
       weeks: [],
-      week_id: null
+      week_id: null,
     }
   },
   created: function(){
@@ -117,31 +124,69 @@ export default {
   //// want this to be before created so the weeks are already populated in the dropdown
   //// https://vuejs.org/v2/api/#created
   beforeCreate: function() {
-    // Grabs the token and the URL
-    const {token, URL} = this.$route.query
-
-    //API CALL - fetches all the weeks in the database
-    fetch(`${URL}/meat_consumption/weekly_consumption/`, {
-      method: 'get',
-      headers: {
-        'authorization': `JWT ${token}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      this.weeks = data
-      // console.log(data)
-    })
+    this.populateWeeks()
   },
 
 /////////////////////////////// METHODS /////////////////////////////////////////
 
   methods: {
 
+    populateWeeks: function() {
+      // Grabs the token and the URL
+      const {token, URL} = this.$route.query
+
+      //API CALL - fetches all the weeks in the database
+      fetch(`${URL}/meat_consumption/weekly_consumption/`, {
+        method: 'get',
+        headers: {
+          'authorization': `JWT ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.weeks = data
+        console.log(data)
+      })
+    },
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////// CREATING A WEEK ///////////////
+  //// Modal to pop up and enter a number
+    promptWeekNumber() {
+      this.$buefy.dialog.prompt({
+        message: `Enter a week number`,
+          inputAttrs: {
+              type: 'number',
+              placeholder: 'Week number',
+              value: '1',
+              maxlength: 3,
+              min: 1
+          },
+          trapFocus: true,
+          onConfirm: (value) => this.$buefy.toast.open(`Added Week: ${value}`),
+        },
+        )
+
+      const { token, URL } = this.$route.query;
+
+      fetch(`${URL}/meat_consumption/weekly_consumption/`, {
+        method: "post",
+        headers: {
+          authorization: `JWT ${ token }`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ week_number: this.value }),
+      }).then(() => {
+        console.log("new week created!")
+        this.populateWeeks()
+      })
+    },
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// FIND ALL THE DAILY LOGS ASSOCIATED WITH ONE WEEK ///////////////
   //// will be attached to the "Find" button in the form of an on-click event 
-    findDailyLogs: async function(event) {
+  findDailyLogs: async function(event) {
       // this.week_id = id
     
       // Grabs the token and the URL
@@ -151,7 +196,7 @@ export default {
       const id = event.target.id
       console.log(id)
 
-      //API CALL - fetches the days in the database that belong to one week
+      // API CALL - fetches the days in the database that belong to one week
       // fetch(`${URL}/meat_consumption/weekly_consumption/${id}/daily_consumption`, {
       //   method: 'get',
       //   headers: {
@@ -164,7 +209,7 @@ export default {
       //   console.log(data)
       // })
 
-  },
+    },
   /////////////////////////////////////////////////////////////////////////
   //////////////// DELETE ONE DAILY LOG ///////////////
   deleteLog: function(event){
@@ -187,13 +232,7 @@ export default {
         console.log("is deleted!") // NEED TO RERUN THE SHOW FUNCTION WHEN ITS DONE
       });
     },
-
   }
-
-
-
-
-
 
 }
 
