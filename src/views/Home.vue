@@ -1,9 +1,58 @@
 <template v-if="loggedIn">
   <div class="home">
-    <h1> leaft </h1>
+    <img src="https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600477007/Project%203%20-%20leaft/Cream_and_Black_Natural_Makeup_Beauty_Logo_hyk9je.png" alt="">  
 <!---------------------------------------------------------------------------------------------------------------> 
 
-    <!----------- CREATE BUTTON AND MODAL ----------> 
+    <!----------- CREATE INPUT FIELDS----------> 
+    <section>
+      <b-field label="Select a date">
+        <b-datepicker v-model="date"
+            :first-day-of-week="1"
+            placeholder="Click to select...">
+
+            <button class="button is-primary"
+                @click="date = new Date()">
+                <b-icon icon="calendar-today"></b-icon>
+                <span>Today</span>
+            </button>
+
+            <button class="button is-danger"
+                @click="date = null">
+                <b-icon icon="close"></b-icon>
+                <span>Clear</span>
+            </button>
+        </b-datepicker>
+      </b-field>
+
+        <b-field>
+            <b-input placeholder="Did you consume meat today?"
+                type="number"
+                min="10"
+                max="20">
+            </b-input>
+        </b-field>
+
+        <b-field>
+            <b-input placeholder="User handle (custom validation for only lowercase)"
+              type="text"
+              required
+              validation-message="Only lowercase is allowed"
+              pattern="[a-z]*">
+            </b-input>
+        </b-field>
+
+        <b-field>
+            <b-input placeholder="URL" type="url"></b-input>
+        </b-field>
+
+        <b-field>
+            <b-input type="textarea"
+                minlength="10"
+                maxlength="100"
+                placeholder="Maxlength automatically counts characters">
+            </b-input>
+        </b-field>
+    </section>
   
 
 
@@ -92,25 +141,9 @@ export default {
     return {
       dailyLogs: [],
       weeks: [],
-      weekID: 0
+      weekID: 0,
+      date: new Date()
     }
-  },
-  created: function(){
-    const {token, URL} = this.$route.query
-
-    // API CALL, feting from the /daily_consumption endpoint, which gathers all the daily logs in
-    // the database, regardless of week. 
-    fetch(`${URL}/meat_consumption/daily_consumption/`, {
-      method: 'get',
-      headers: {
-        'authorization': `JWT ${token}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      this.dailyLogs = data
-      console.log(data)
-    })
   },
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,7 +235,7 @@ export default {
       // Delete method performed, then re-populate the screen with the remaining logs 
       // so the user doesn't have to request
       }).then(() => {
-        console.log("is deleted!") // NEED TO RERUN THE SHOW FUNCTION WHEN ITS DONE
+        this.findDailyLogs()
       });
     },
   }
