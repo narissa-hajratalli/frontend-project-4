@@ -14,8 +14,5 @@ export default {
 
 <style scoped>
 
-body {
-  background-image: url("https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600477006/Project%203%20-%20leaft/Untitled_design_vcgamc.png");
-}
 
 </style>

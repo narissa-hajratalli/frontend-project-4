@@ -1,20 +1,20 @@
 <template>
   <div class="header">
     <b-navbar>
-      <template slot="brand">
+      <!-- <template slot="brand">
         <b-navbar-item>
           <router-link to="/"><span class="logo">leaft</span></router-link>
         </b-navbar-item>
-      </template>
+      </template> -->
       <template slot="start">
         <b-navbar-item href="#" v-if="loggedIn">
-          <router-link to="/home">Home</router-link>
+          <router-link to="/home" class="header-text">Home</router-link>
         </b-navbar-item>
         <b-navbar-item href="#" v-if="loggedIn">
-          <router-link to="/aboutsustainability">About Sustainability</router-link>
+          <router-link to="/aboutsustainability" class="header-text">About Sustainability</router-link>
         </b-navbar-item>
         <b-navbar-item href="#" v-if="loggedIn">
-          <router-link to="/about">About</router-link>
+          <router-link to="/about" class="header-text">About</router-link>
         </b-navbar-item>
       </template>
 
@@ -46,9 +46,15 @@ export default {
 </script>
 
 <style>
+
+
 .header {
     width: 90%;
     margin: 10px auto
+}
+
+.header-text {
+  color:green;
 }
 
 </style>

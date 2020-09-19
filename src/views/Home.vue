@@ -1,6 +1,6 @@
 <template v-if="loggedIn">
   <div class="home">
-    <img src="https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600477007/Project%203%20-%20leaft/Cream_and_Black_Natural_Makeup_Beauty_Logo_hyk9je.png" alt="">  
+    <img src="https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600553249/Project%203%20-%20leaft/160055314716415549_tdbshz.png" alt="leaft logo">  
 <!---------------------------------------------------------------------------------------------------------------> 
   
 
@@ -10,8 +10,8 @@
     <!----------- DROPDOWN AREA ----------> 
     <section>
         <!----------- Dropdown menu with weeks ----------> 
-        <b-field label="Select a Weekly Log" id="week-dropdown">
-            <b-select v-model="weekID" placeholder="Select a week" >
+        <b-field label="Select a Weekly Log" id="week-dropdown" >
+            <b-select v-model="weekID" placeholder="Select a week">
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
                 <!-- also making each field in the dropdown menu associate with the week's id --> 
@@ -26,8 +26,6 @@
                 </option>
               </b-select>
 
-
-
             <!----------- Find button ---------->                
             <b-button type="is-success" v-on:click="findDailyLogs" v-model="weekID">Find</b-button>
 
@@ -36,40 +34,51 @@
     </section>
 
 <!--------------------------------------------------------------------------------------------------------------->
-  <!----------- CREATE INPUT FIELDS----------> 
-    <section id="create-log-form" class="box">
-      <b-field label="Select a date">
-        <b-datepicker v-model="date"
-            :first-day-of-week="1"
-            placeholder="Select a date...">
+  <!----------- CREATE INPUT FIELDS ----------->
+    
+    <b-collapse :open="false" aria-id="contentIdForA11y1" id="create-log-with-button">
+        <button
+          class="button is-primary"
+          slot="trigger"
+          aria-controls="contentIdForA11y1" id="add-log">Add a daily log</button>
+        <div>
+          <div class="content">
+            <section id="create-log-form" class="box">
+              <b-field label="Select a date">
+                <b-datepicker v-model="date"
+                    :first-day-of-week="1"
+                    placeholder="Select a date...">
 
-            <button class="button is-primary"
-                @click="date = new Date()">
-                <b-icon icon="calendar-today"></b-icon>
-                <span>Today</span>
-            </button>
+                    <button class="button is-primary"
+                        @click="date = new Date()">
+                        <b-icon icon="calendar-today"></b-icon>
+                        <span>Today</span>
+                    </button>
 
-            <button class="button is-danger"
-                @click="date = null">
-                <b-icon icon="close"></b-icon>
-                <span>Clear</span>
-            </button>
-        </b-datepicker>
-      </b-field>
+                    <button class="button is-danger"
+                        @click="date = null">
+                        <b-icon icon="close"></b-icon>
+                        <span>Clear</span>
+                    </button>
+                </b-datepicker>
+              </b-field>
 
-      <b-field label="Ate meat? Be honest; it's okay!">
-        <b-select placeholder="Ate meat? Be honest--it's okay!" v-model="consumed">
-          <option>Yes</option>
-          <option>No</option>
-        </b-select>
-      </b-field>
+              <b-field label="Ate meat? Be honest; it's okay!">
+                <b-select placeholder="Ate meat? Be honest--it's okay!" v-model="consumed">
+                  <option>Yes</option>
+                  <option>No</option>
+                </b-select>
+              </b-field>
 
-      <b-field label="How many servings?">
-        <b-numberinput type="is-success" min=0 v-model="servings"></b-numberinput>
-      </b-field>
-      
-      <b-button type="is-success" v-on:click="createDailyLog" v-model="weekID">Add log for Week NUM HERE {{ weeks.week_number }}</b-button>
-    </section>
+              <b-field label="How many servings?">
+                <b-numberinput type="is-success" min=0 v-model="servings"></b-numberinput>
+              </b-field>
+              
+              <b-button type="is-success" v-on:click="createDailyLog" v-model="weekID">Add log for {{ weekID.week_number }}</b-button>
+            </section>
+          </div>
+        </div>
+      </b-collapse>
 
 <!---------------------------------------------------------------------------------------------------------------> 
 
@@ -180,8 +189,8 @@ export default {
     // },
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////// CREATING A WEEK ///////////////
-  createDailyLog: function(){
+  //////////////// CREATING A DAILY LOG ///////////////
+  createDailyLog: function() {
     const { token, URL } = this.$route.query;
 
       fetch(`${URL}/meat_consumption/daily_consumption/`, {
@@ -206,7 +215,6 @@ export default {
         this.dailyLogs = data
         this.findDailyLogs();
       });
-
   },
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -231,7 +239,7 @@ export default {
     },
   /////////////////////////////////////////////////////////////////////////
   //////////////// DELETE ONE DAILY LOG ///////////////
-  deleteLog: function(event){
+    deleteLog: function(event){
       // Destructuring the token and the URL from the request
       const { token, URL } = this.$route.query;
 
@@ -249,7 +257,7 @@ export default {
       // so the user doesn't have to request
       }).then(() => {
         this.findDailyLogs()
-      });
+      })
     },
   }
 
@@ -258,7 +266,17 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: rgb(238, 255, 217);
+}
 
+#add-log {
+  margin: 30px;
+}
+
+#dropdown-and-button {
+  margin: 0 auto
+}
 #create-log-form {
   /* border: 1px black solid; */
   width: 50vw;
@@ -272,9 +290,10 @@ export default {
 }
 
 #week-dropdown {
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 }
 
 .daily-logs {
