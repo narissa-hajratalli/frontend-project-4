@@ -2,40 +2,6 @@
   <div class="home">
     <img src="https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600477007/Project%203%20-%20leaft/Cream_and_Black_Natural_Makeup_Beauty_Logo_hyk9je.png" alt="">  
 <!---------------------------------------------------------------------------------------------------------------> 
-
-    <!----------- CREATE INPUT FIELDS----------> 
-    <section>
-      <b-field label="Select a date">
-        <b-datepicker v-model="date"
-            :first-day-of-week="1"
-            placeholder="Click to select...">
-
-            <button class="button is-primary"
-                @click="date = new Date()">
-                <b-icon icon="calendar-today"></b-icon>
-                <span>Today</span>
-            </button>
-
-            <button class="button is-danger"
-                @click="date = null">
-                <b-icon icon="close"></b-icon>
-                <span>Clear</span>
-            </button>
-        </b-datepicker>
-      </b-field>
-
-      <b-field label="Ate meat? Be honest; it's okay!">
-        <b-select placeholder="Ate meat? Be honest--it's okay!">
-          <option>Yes</option>
-          <option>No</option>
-        </b-select>
-      </b-field>
-
-      <b-field label="How many">
-        <b-numberinput type="is-success" min=0></b-numberinput>
-      </b-field>
-            
-    </section>
   
 
 
@@ -44,7 +10,7 @@
     <!----------- DROPDOWN AREA ----------> 
     <section>
         <!----------- Dropdown menu with weeks ----------> 
-        <b-field label="Select a Weekly Log">
+        <b-field label="Select a Weekly Log" id="week-dropdown">
             <b-select v-model="weekID" placeholder="Select a week" >
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
@@ -69,10 +35,46 @@
       </b-field>
     </section>
 
+<!--------------------------------------------------------------------------------------------------------------->
+  <!----------- CREATE INPUT FIELDS----------> 
+    <section id="create-log-form" class="box">
+      <b-field label="Select a date">
+        <b-datepicker v-model="date"
+            :first-day-of-week="1"
+            placeholder="Select a date...">
+
+            <button class="button is-primary"
+                @click="date = new Date()">
+                <b-icon icon="calendar-today"></b-icon>
+                <span>Today</span>
+            </button>
+
+            <button class="button is-danger"
+                @click="date = null">
+                <b-icon icon="close"></b-icon>
+                <span>Clear</span>
+            </button>
+        </b-datepicker>
+      </b-field>
+
+      <b-field label="Ate meat? Be honest; it's okay!">
+        <b-select placeholder="Ate meat? Be honest--it's okay!" v-model="consumed">
+          <option>Yes</option>
+          <option>No</option>
+        </b-select>
+      </b-field>
+
+      <b-field label="How many servings?">
+        <b-numberinput type="is-success" min=0 v-model="servings"></b-numberinput>
+      </b-field>
+      
+      <b-button type="is-success" v-on:click="createDailyLog" v-model="weekID">Add log for Week NUM HERE {{ weeks.week_number }}</b-button>
+    </section>
+
 <!---------------------------------------------------------------------------------------------------------------> 
 
-      <!----------- DROPDOWN MENU CONTAINING EACH WEEK ----------> 
-        <section v-for="dailyLog of dailyLogs" v-bind:key="dailyLog.id" v-bind:id="dailyLog.id"> 
+      <!----------- CARDS WITH DAILY LOGS ----------> 
+        <section v-for="dailyLog of dailyLogs" v-bind:key="dailyLog.id" v-bind:id="dailyLog.id" class="daily-logs"> 
           <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
             <div
                 slot="trigger" 
@@ -125,7 +127,9 @@ export default {
       dailyLogs: [],
       weeks: [],
       weekID: 0,
-      date: new Date()
+      date: new Date(),
+      servings: 0,
+      consumed: ""
     }
   },
 
@@ -134,7 +138,7 @@ export default {
   //// beforeCreated: Called synchronously immediately after the instance has been initialized
   //// want this to be before created so the weeks are already populated in the dropdown
   //// https://vuejs.org/v2/api/#created
-  beforeCreate: function() {
+  created: function() {
     // Grabs the token and the URL
     const {token, URL} = this.$route.query
 
@@ -176,6 +180,34 @@ export default {
     // },
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////// CREATING A WEEK ///////////////
+  createDailyLog: function(){
+    const { tokens, URL } = this.$route.query;
+
+      fetch(`${URL}/meat_consumption/daily_consumption/`, {
+        method: "post",
+        headers: {
+          authorization: `JWT ${tokens}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          consumed: this.consumed,
+          daily_servings: this.servings,
+          day_consumed: this.date,
+          weekly_consumption_id: this.weekID
+
+         }),
+      }).then(() => {
+        console.log(this.consumed)
+        console.log(this.servings)
+        console.log(this.day_consumed)
+        console.log(this.weekID)
+        this.findDailyLogs();
+      });
+
+  },
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// FIND ALL THE DAILY LOGS ASSOCIATED WITH ONE WEEK ///////////////
   //// will be attached to the "Find" button in the form of an on-click event 
   findDailyLogs: async function(event) {   
@@ -184,6 +216,7 @@ export default {
 
       // Grabing the id from the week
       const id = event.target.value
+      console.log(event)
       console.log(id)
 
       // API CALL - fetches the days in the database that belong to one week
@@ -226,3 +259,31 @@ export default {
 }
 
 </script>
+
+<style>
+
+#create-log-form {
+  /* border: 1px black solid; */
+  width: 50vw;
+  max-width: 500px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: 0px auto;
+  /* box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02) */
+  /* background-image: url("https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600536028/Project%203%20-%20leaft/Untitled_design_copy_zzi5gz.png") */
+}
+
+#week-dropdown {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.daily-logs {
+  max-width: 400px;
+  display: flex;
+  flex-wrap: wrap
+}
+
+</style>
