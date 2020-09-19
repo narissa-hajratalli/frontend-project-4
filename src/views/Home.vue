@@ -182,26 +182,28 @@ export default {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// CREATING A WEEK ///////////////
   createDailyLog: function(){
-    const { tokens, URL } = this.$route.query;
+    const { token, URL } = this.$route.query;
 
       fetch(`${URL}/meat_consumption/daily_consumption/`, {
         method: "post",
         headers: {
-          authorization: `JWT ${tokens}`,
+          'authorization': `JWT ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
-          consumed: this.consumed,
           daily_servings: this.servings,
+          consumed: this.consumed,
           day_consumed: this.date,
           weekly_consumption_id: this.weekID
 
          }),
-      }).then(() => {
+      }).then(data => {
+        console.log(`${URL}/meat_consumption/weekly_consumption/${this.weekID}/daily_consumption`)
         console.log(this.consumed)
         console.log(this.servings)
-        console.log(this.day_consumed)
+        console.log(this.date)
         console.log(this.weekID)
+        this.dailyLogs = data
         this.findDailyLogs();
       });
 
@@ -210,17 +212,12 @@ export default {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// FIND ALL THE DAILY LOGS ASSOCIATED WITH ONE WEEK ///////////////
   //// will be attached to the "Find" button in the form of an on-click event 
-  findDailyLogs: async function(event) {   
+  findDailyLogs: async function() {   
       // Grabs the token and the URL
       const {token, URL} = this.$route.query
 
-      // Grabing the id from the week
-      const id = event.target.value
-      console.log(event)
-      console.log(id)
-
       // API CALL - fetches the days in the database that belong to one week
-      fetch(`${URL}/meat_consumption/weekly_consumption/${id}/daily_consumption`, {
+      fetch(`${URL}/meat_consumption/weekly_consumption/${this.weekID}/daily_consumption`, {
         method: 'get',
         headers: {
           'authorization': `JWT ${token}`
@@ -270,7 +267,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 0px auto;
-  /* box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02) */
+  box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02)
   /* background-image: url("https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600536028/Project%203%20-%20leaft/Untitled_design_copy_zzi5gz.png") */
 }
 
