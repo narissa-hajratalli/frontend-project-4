@@ -13,7 +13,7 @@
     <section>
         <!----------- Dropdown menu with weeks ----------> 
         <b-field label="Select a Weekly Log">
-            <b-select placeholder="Select a week">
+            <b-select v-model="weekID" placeholder="Select a week" >
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
                 <!-- also making each field in the dropdown menu associate with the week's id --> 
@@ -28,12 +28,13 @@
                 </option>
               </b-select>
 
+
+
             <!----------- Find button ---------->                
-            <b-button type="is-success" v-on:click="findDailyLogs" id="week.id">Find</b-button>
+            <b-button type="is-success" v-on:click="findDailyLogs">Find</b-button>
 
             <!----------- Add a week button ---------->  
-            <b-button type="is-success is-light" v-on:click="promptWeekNumber">Add</b-button>
-        </b-field>
+      </b-field>
     </section>
 
 <!---------------------------------------------------------------------------------------------------------------> 
@@ -91,7 +92,7 @@ export default {
     return {
       dailyLogs: [],
       weeks: [],
-      week_id: null,
+      weekID: 0
     }
   },
   created: function(){
@@ -124,64 +125,45 @@ export default {
   //// want this to be before created so the weeks are already populated in the dropdown
   //// https://vuejs.org/v2/api/#created
   beforeCreate: function() {
-    this.populateWeeks()
+    // Grabs the token and the URL
+    const {token, URL} = this.$route.query
+
+    //API CALL - fetches all the weeks in the database
+    fetch(`${URL}/meat_consumption/weekly_consumption/`, {
+      method: 'get',
+      headers: {
+        'authorization': `JWT ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.weeks = data
+      console.log(data)
+      console.log(this.weekID)
+    })
+
   },
 
 /////////////////////////////// METHODS /////////////////////////////////////////
 
   methods: {
 
-    populateWeeks: function() {
-      // Grabs the token and the URL
-      const {token, URL} = this.$route.query
-
-      //API CALL - fetches all the weeks in the database
-      fetch(`${URL}/meat_consumption/weekly_consumption/`, {
-        method: 'get',
-        headers: {
-          'authorization': `JWT ${token}`
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        this.weeks = data
-        console.log(data)
-      })
-    },
-
-
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// CREATING A WEEK ///////////////
-  //// Modal to pop up and enter a number
-    promptWeekNumber() {
-      this.$buefy.dialog.prompt({
-        message: `Enter a week number`,
-          inputAttrs: {
-              type: 'number',
-              placeholder: 'Week number',
-              value: '1',
-              maxlength: 3,
-              min: 1
-          },
-          trapFocus: true,
-          onConfirm: (value) => this.$buefy.toast.open(`Added Week: ${value}`),
-        },
-        )
 
-      const { token, URL } = this.$route.query;
+    //   const { token, URL } = this.$route.query;
 
-      fetch(`${URL}/meat_consumption/weekly_consumption/`, {
-        method: "post",
-        headers: {
-          authorization: `JWT ${ token }`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ week_number: this.value }),
-      }).then(() => {
-        console.log("new week created!")
-        this.populateWeeks()
-      })
-    },
+    //   fetch(`${URL}/meat_consumption/weekly_consumption/`, {
+    //     method: "post",
+    //     headers: {
+    //       authorization: `JWT ${ token }`,
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ week_number: this.value }),
+    //   }).then(() => {
+    //     console.log("new week created!")
+    //   })
+    // },
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// FIND ALL THE DAILY LOGS ASSOCIATED WITH ONE WEEK ///////////////
