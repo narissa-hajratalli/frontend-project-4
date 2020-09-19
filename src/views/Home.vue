@@ -31,7 +31,7 @@
 
 
             <!----------- Find button ---------->                
-            <b-button type="is-success" v-on:click="findDailyLogs">Find</b-button>
+            <b-button type="is-success" v-on:click="findDailyLogs" v-model="weekID">Find</b-button>
 
             <!----------- Add a week button ---------->  
       </b-field>
@@ -111,12 +111,6 @@ export default {
       this.dailyLogs = data
       console.log(data)
     })
-    //   const getLogin = JSON.parse(window.sessionStorage.getItem('login'))
-    //   if (getLogin) {
-    //   this.user = getLogin.user
-    //   this.token = getLogin.token
-    //   this.loggedin = true
-    // }
   },
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,29 +162,26 @@ export default {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// FIND ALL THE DAILY LOGS ASSOCIATED WITH ONE WEEK ///////////////
   //// will be attached to the "Find" button in the form of an on-click event 
-  findDailyLogs: async function(event) {
-      // this.week_id = id
-    
+  findDailyLogs: async function(event) {   
       // Grabs the token and the URL
-      // const {token, URL} = this.$route.query
+      const {token, URL} = this.$route.query
 
       // Grabing the id from the week
-      const id = event.target.id
+      const id = event.target.value
       console.log(id)
 
       // API CALL - fetches the days in the database that belong to one week
-      // fetch(`${URL}/meat_consumption/weekly_consumption/${id}/daily_consumption`, {
-      //   method: 'get',
-      //   headers: {
-      //     'authorization': `JWT ${token}`
-      //   }
-      // })
-      // .then(response => response.json())
-      // .then(data => {
-      //   this.dailyLogs = data
-      //   console.log(data)
-      // })
-
+      fetch(`${URL}/meat_consumption/weekly_consumption/${id}/daily_consumption`, {
+        method: 'get',
+        headers: {
+          'authorization': `JWT ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.dailyLogs = data
+        console.log(data)
+      })
     },
   /////////////////////////////////////////////////////////////////////////
   //////////////// DELETE ONE DAILY LOG ///////////////
