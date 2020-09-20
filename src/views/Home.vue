@@ -92,7 +92,7 @@
                 role="button"
                 aria-controls="contentIdForA11y3">
                 <p class="card-header-title">
-                    {{ `Date: ${dailyLog.day_consumed}` }}
+                  {{ `Date: ${date}` }}
                 </p>
                 <a class="card-header-icon">
                     <b-icon
@@ -109,9 +109,12 @@
                   `
                  }}
                 </div>
+        
+
+
+        
             </div>
             <footer class="card-footer">
-                <a class="card-footer-item" v-bind:id="dailyLog.id">Edit</a>
                 <a class="card-footer-item" v-bind:id="dailyLog.id" v-on:click="deleteLog">Delete</a>
             </footer>
         </b-collapse>
@@ -259,6 +262,7 @@ export default {
         this.findDailyLogs()
       })
     },
+
   }
 
 }
