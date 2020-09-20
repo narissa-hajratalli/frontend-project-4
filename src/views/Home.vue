@@ -156,7 +156,7 @@
 
     <!----------- DISPLAY WEEKLY TOTAL ---------->
     <section id="weekly-total">
-        <h1>{{ `Your weekly total: ${dailyLogs[0].weekly_total} servings`}}</h1>
+        <!-- <h1>{{ `Your weekly total: ${dailyLogs[0].weekly_total} servings`}}</h1> -->
     </section> 
 
   </div>
@@ -364,7 +364,8 @@ body {
 .daily-logs {
   max-width: 400px;
   display: flex;
-  flex-wrap: wrap
+  flex-wrap: wrap;
+  padding: 30px
 }
 
 
