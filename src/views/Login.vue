@@ -1,7 +1,6 @@
 <template>
   <div class="login">
-   <b-field label="Username"
-            type="is-success">
+   <b-field label="Username">
             <b-input v-model="username"></b-input>
         </b-field>
 

@@ -1,4 +1,4 @@
-<template v-if="loggedIn">
+<template >
   <div class="home">
     <img src="https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600553249/Project%203%20-%20leaft/160055314716415549_tdbshz.png" alt="leaft logo">  
 <!---------------------------------------------------------------------------------------------------------------> 
@@ -8,9 +8,9 @@
 <!---------------------------------------------------------------------------------------------------------------> 
 
     <!----------- DROPDOWN AREA ----------> 
-    <section>
+    <section id="dropdown-area">
         <!----------- Dropdown menu with weeks ----------> 
-        <b-field label="Select a Weekly Log" id="week-dropdown" >
+        <b-field label="Select a Weekly Log">
             <b-select v-model="weekID" placeholder="Select a week">
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
@@ -29,7 +29,30 @@
             <!----------- Find button ---------->                
             <b-button type="is-success" v-on:click="findDailyLogs" v-model="weekID">Find</b-button>
 
-            <!----------- Add a week button ---------->  
+            <!----------- Add a week button / input field ---------->  
+            <b-collapse :open="false" aria-id="contentIdForA11y1">
+                <button
+                    class="button is-primary"
+                    slot="trigger"
+                    aria-controls="contentIdForA11y1">Add</button>
+                <div class="notification">
+                    <div class="content">
+                        <h4>
+                            New Week
+                        </h4>
+                        <b-field>
+                          <b-field grouped>
+                      
+                              <b-numberinput min="0" v-model="weekNumber" expanded/>
+                              <p class="control">
+                                  <button class="button" v-on:click="createWeek">Save</button>
+                              </p>
+                            </b-field>
+                        </b-field>
+                    </div>
+                </div>
+            </b-collapse>
+
       </b-field>
     </section>
 
@@ -101,7 +124,7 @@
                 </a>
             </div>
             <div class="card-content">
-                <div class="content" v-bind:id="dailyLog.id">
+                <div class="content log-content" v-bind:id="dailyLog.id">
                   {{ 
                   `
                   Consumed meat?: ${dailyLog.consumed}
@@ -110,19 +133,18 @@
                  }}
                 </div>
         
+        
               <!----------- Update servings field ----------> 
+            
               <b-field label="Update daily servings">
                   <b-field grouped>
-                      <p class="control">
-                          <button class="button" v-bind:id="dailyLog.id" v-on:click="editServings"
-                          >Update</button>
-                      </p>
                       <b-numberinput min="0" v-bind:id="dailyLog.id" v-model="updateServings" expanded/>
                   </b-field>
               </b-field>
-
-
-
+                  <p class="control">
+                    <button class="button" v-bind:id="dailyLog.id" v-on:click="editServings"
+                    >Update</button>
+                  </p>
             </div>
             <footer class="card-footer">
                 <a class="card-footer-item" v-bind:id="dailyLog.id" v-on:click="deleteLog">Delete</a>
@@ -134,7 +156,7 @@
 
     <!----------- DISPLAY WEEKLY TOTAL ---------->
     <section id="weekly-total">
-      <h1>{{ `Your weekly total is `}}</h1>
+        <h1>{{ `Your weekly total: ${dailyLogs[0].weekly_total} servings`}}</h1>
     </section> 
 
   </div>
@@ -152,17 +174,25 @@ export default {
       date: new Date(),
       servings: 0,
       consumed: "",
-      week_number: 0,
+      weekNumber: 0,
       updateServings: 0,
+      weeklyTotal: 0
     }
   },
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////// POPULATING THE WEEKS IN A DROPDOWN MENU //////
-  //// beforeCreated: Called synchronously immediately after the instance has been initialized
-  //// want this to be before created so the weeks are already populated in the dropdown
-  //// https://vuejs.org/v2/api/#created
+  ///////// FILL DROPDOWN BEFORE ANYTHING //////
   created: function() {
+    this.showWeeks()
+  },
+
+/////////////////////////////// METHODS /////////////////////////////////////////
+
+  methods: {
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////// POPULATING THE WEEKS IN A DROPDOWN MENU //////
+  showWeeks: function() {
     // Grabs the token and the URL
     const {token, URL} = this.$route.query
 
@@ -176,32 +206,29 @@ export default {
     .then(response => response.json())
     .then(data => {
       this.weeks = data
-      console.log(data)
-      console.log(this.weekID)
+      // console.log(data)
+      // console.log(this.weekID)
     })
-
   },
-
-/////////////////////////////// METHODS /////////////////////////////////////////
-
-  methods: {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// CREATING A WEEK ///////////////
+    createWeek: function() {
+      const { token, URL } = this.$route.query;
 
-    //   const { token, URL } = this.$route.query;
-
-    //   fetch(`${URL}/meat_consumption/weekly_consumption/`, {
-    //     method: "post",
-    //     headers: {
-    //       authorization: `JWT ${ token }`,
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ week_number: this.value }),
-    //   }).then(() => {
-    //     console.log("new week created!")
-    //   })
-    // },
+      fetch(`${URL}/meat_consumption/weekly_consumption/`, {
+        method: "post",
+        headers: {
+          authorization: `JWT ${ token }`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            week_number: this.weekNumber}),
+      }).then(() => {
+        // console.log(this.weekNumber)
+        this.showWeeks()
+      })
+    },
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////// CREATING A DAILY LOG ///////////////
@@ -222,10 +249,10 @@ export default {
 
          }),
       }).then(() => {
-        console.log(`${URL}/meat_consumption/weekly_consumption/${this.weekID}/daily_consumption`)
-        console.log(this.consumed)
-        console.log(this.servings)
-        console.log(this.date)
+        // console.log(`${URL}/meat_consumption/weekly_consumption/${this.weekID}/daily_consumption`)
+        // console.log(this.consumed)
+        // console.log(this.servings)
+        // console.log(this.date)
         // console.log(this.weekID)
         // this.dailyLogs = data
         this.findDailyLogs();
@@ -281,29 +308,26 @@ export default {
       const { token, URL } = this.$route.query;
 
       const id = event.target.id;
-      console.log(id)
+      // console.log(id)
 
+      // Patch request--fetching one log by it's id
       fetch(`${URL}/meat_consumption/daily_consumption/${id}/`, {
         method: "patch",
         headers: {
           authorization: `JWT ${token}`,
           "Content-Type": "application/json"
         },
+        // used v-model on the input field to make the number value the user inputs
+        // equal to this.updateServings and using that as the new valur for servings
         body: JSON.stringify({
           daily_servings: this.updateServings
           })
       }).then(() => {
-        console.log(this.updateServings)
         this.findDailyLogs();
       });
-    }
-
-
-
+    },
   }
-
 }
-
 </script>
 
 <style>
@@ -315,7 +339,7 @@ body {
   margin: 30px;
 }
 
-#dropdown-and-button {
+#dropdown-area {
   margin: 0 auto
 }
 #create-log-form {
@@ -342,5 +366,7 @@ body {
   display: flex;
   flex-wrap: wrap
 }
+
+
 
 </style>
