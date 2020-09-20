@@ -115,7 +115,7 @@
                 role="button"
                 aria-controls="contentIdForA11y3">
                 <p class="card-header-title">
-                  {{ `Date: ${date}` }}
+                  {{ `Date: ${dailyLog.day_consumed}` }}
                 </p>
                 <a class="card-header-icon">
                     <b-icon
@@ -156,7 +156,7 @@
 
     <!----------- DISPLAY WEEKLY TOTAL ---------->
     <section id="weekly-total">
-        <!-- <h1>{{ `Your weekly total: ${dailyLogs[0].weekly_total} servings`}}</h1> -->
+        <h1 v-if="dailyLogs.length >= 1">{{ `Your weekly total: ${dailyLogs[0].weekly_total} servings`}}</h1>
     </section> 
 
   </div>
