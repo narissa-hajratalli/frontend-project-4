@@ -110,9 +110,19 @@
                  }}
                 </div>
         
+              <!----------- Update servings field ----------> 
+              <b-field label="Update daily servings">
+                  <b-field grouped>
+                      <p class="control">
+                          <button class="button" v-bind:id="dailyLog.id" v-on:click="editServings"
+                          >Update</button>
+                      </p>
+                      <b-numberinput min="0" v-bind:id="dailyLog.id" v-model="updateServings" expanded/>
+                  </b-field>
+              </b-field>
 
 
-        
+
             </div>
             <footer class="card-footer">
                 <a class="card-footer-item" v-bind:id="dailyLog.id" v-on:click="deleteLog">Delete</a>
@@ -141,7 +151,9 @@ export default {
       weekID: 0,
       date: new Date(),
       servings: 0,
-      consumed: ""
+      consumed: "",
+      week_number: 0,
+      updateServings: 0,
     }
   },
 
@@ -209,13 +221,13 @@ export default {
           weekly_consumption_id: this.weekID
 
          }),
-      }).then(data => {
+      }).then(() => {
         console.log(`${URL}/meat_consumption/weekly_consumption/${this.weekID}/daily_consumption`)
         console.log(this.consumed)
         console.log(this.servings)
         console.log(this.date)
-        console.log(this.weekID)
-        this.dailyLogs = data
+        // console.log(this.weekID)
+        // this.dailyLogs = data
         this.findDailyLogs();
       });
   },
@@ -237,7 +249,7 @@ export default {
       .then(response => response.json())
       .then(data => {
         this.dailyLogs = data
-        console.log(data)
+        // console.log(data)
       })
     },
   /////////////////////////////////////////////////////////////////////////
@@ -262,6 +274,31 @@ export default {
         this.findDailyLogs()
       })
     },
+
+  /////////////////////////////////////////////////////////////////////////
+  //////////////// UPDATE ONE DAILY LOG ///////////////
+  editServings: function(event) {
+      const { token, URL } = this.$route.query;
+
+      const id = event.target.id;
+      console.log(id)
+
+      fetch(`${URL}/meat_consumption/daily_consumption/${id}/`, {
+        method: "patch",
+        headers: {
+          authorization: `JWT ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          daily_servings: this.updateServings
+          })
+      }).then(() => {
+        console.log(this.updateServings)
+        this.findDailyLogs();
+      });
+    }
+
+
 
   }
 
