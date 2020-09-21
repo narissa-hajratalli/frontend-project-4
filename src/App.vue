@@ -34,7 +34,7 @@ export default {
     return {
       loggedIn: false,
       token: "",
-      URL: 'http://localhost:8000'
+      URL: 'https://backend-project4.herokuapp.com'
       // https://backend-project4.herokuapp.com'
     }
   },
