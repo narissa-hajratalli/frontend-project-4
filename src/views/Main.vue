@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1>THIS IS THE MAIN PAGE. YOU WILL SEE A LOGO HERE</h1>
+    <img src="https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600553788/Project%203%20-%20leaft/leaft_l3dn4e.png">
   </div>
 </template>
 
