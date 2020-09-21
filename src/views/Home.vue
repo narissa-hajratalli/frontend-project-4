@@ -183,9 +183,9 @@ export default {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////// FILL DROPDOWN BEFORE ANYTHING //////
   created() {
-    this.showWeeks()
-    console.log("create showWeeks running")
-  }, 
+      this.showWeeks()
+      console.log("create showWeeks running")
+  },
 
   beforeCreate: function(){
     this.$route.query.token = window.localStorage.getItem("token")
@@ -201,6 +201,7 @@ export default {
   showWeeks: function() {
     // Grabs the token and the URL
     const {token, URL} = this.$route.query
+    console.log(`this is the url ${URL}`)
 
     //API CALL - fetches all the weeks in the database
     fetch(`${URL}/meat_consumption/weekly_consumption/`, {
