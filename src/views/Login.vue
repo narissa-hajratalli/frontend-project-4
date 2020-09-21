@@ -32,7 +32,7 @@ export default {
     if (getLogin) {
         this.user = getLogin.user
         this.token = getLogin.token
-        this.loggedin = true
+        // this.loggedin = true
     }
   },
   methods: {
@@ -62,6 +62,7 @@ export default {
           alert('Incorrect Login')
         }
       })
+      console.log(`${this.$route.query.URL}/auth/users/login/`)
     }
   },
 }
