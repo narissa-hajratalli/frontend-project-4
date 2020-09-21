@@ -385,7 +385,7 @@ body {
 }
 
 .label {
-  font-size: 300px;
+  font-size: 40px;
 }
 
 
