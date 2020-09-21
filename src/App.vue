@@ -39,10 +39,10 @@ export default {
     }
   },
 
-  beforeMount: function(){
-    this.token = window.localStorage.getItem("token")
-    this.loggedIn = true
-  },
+  // beforeMount: function(){
+  //   this.token = window.localStorage.getItem("token")
+  //   this.loggedIn = true
+  // },
   /////////////////////////////////////////////////////////
   // Methods 
   methods: {
