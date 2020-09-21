@@ -10,7 +10,7 @@
     <!----------- DROPDOWN AREA ----------> 
     <section id="dropdown-area">
         <!----------- Dropdown menu with weeks ----------> 
-        <b-field class="header-text small-headers" label="Select a Weekly Log">
+        <b-field class="header-text-select small-headers" label="Select a Weekly Log">
             <b-select v-model="weekID" placeholder="Select a week" id="dropdown">
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
@@ -37,9 +37,9 @@
                     aria-controls="contentIdForA11y1" type="is-success is-light">Add</b-button>
                 <div class="notification">
                     <div class="content">
-                        <h2 class="header-text">
+                        <h7 class="header-text-select">
                             New Week
-                        </h2>
+                        </h7>
                         <b-field>
                           <b-field grouped>
                       
@@ -67,7 +67,7 @@
         <div>
           <div class="content">
             <section id="create-log-form" class="box">
-              <b-field label="Select a date" class="header-text">
+              <b-field label="Select a date" class="header-text-card">
                 <b-datepicker v-model="date"
                     :first-day-of-week="1"
                     placeholder="Select a date...">
@@ -86,14 +86,14 @@
                 </b-datepicker>
               </b-field>
 
-              <b-field class="header-text" label="Ate meat? (be honest; it's okay!)">
+              <b-field class="header-text-card" label="Ate meat? (be honest; it's okay!)">
                 <b-select placeholder="Ate meat? Be honest--it's okay!" v-model="consumed">
                   <option>Yes</option>
                   <option>No</option>
                 </b-select>
               </b-field>
 
-              <b-field class="header-text" label="How many servings?">
+              <b-field class="header-text-card" label="How many servings?">
                 <b-numberinput type="is-success" min=0 v-model="servings"></b-numberinput>
               </b-field>
               
@@ -114,7 +114,7 @@
                 class="card-header"
                 role="button"
                 aria-controls="contentIdForA11y3">
-                <p class="card-header-title header-text">
+                <p class="header-text-home">
                   {{ `Date: ${dailyLog.day_consumed}` }}
                 </p>
                 <a class="card-header-icon">
@@ -333,6 +333,7 @@ export default {
       }).then(() => {
         this.findDailyLogs();
       });
+      console.log(`${URL}/meat_consumption/daily_consumption/${id}/`)
     },
   }
 }
@@ -384,8 +385,14 @@ body {
   font-size: 40px;
 }
 
-.label {
+.header-text-select {
   font-size: 40px;
+  font-family: 'Caveat', cursive;
+}
+
+.header-text-card {
+  font-family: 'Caveat', cursive;
+  font-size: 30px
 }
 
 
