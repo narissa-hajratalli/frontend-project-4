@@ -10,7 +10,7 @@
     <!----------- DROPDOWN AREA ----------> 
     <section id="dropdown-area">
         <!----------- Dropdown menu with weeks ----------> 
-        <b-field class="header-text" label="Select a Weekly Log">
+        <b-field class="header-text small-headers" label="Select a Weekly Log">
             <b-select v-model="weekID" placeholder="Select a week" id="dropdown">
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
@@ -31,10 +31,10 @@
 
             <!----------- Add a week button / input field ---------->  
             <b-collapse :open="false" aria-id="contentIdForA11y1">
-                <button
+                <b-button
                     class="button is-primary"
                     slot="trigger"
-                    aria-controls="contentIdForA11y1">Add</button>
+                    aria-controls="contentIdForA11y1" type="is-success is-light">Add</b-button>
                 <div class="notification">
                     <div class="content">
                         <h2 class="header-text">
@@ -60,14 +60,14 @@
   <!----------- CREATE INPUT FIELDS ----------->
     
     <b-collapse :open="false" aria-id="contentIdForA11y1" id="create-log-with-button">
-        <button
+        <b-button
           class="button is-primary"
           slot="trigger"
-          aria-controls="contentIdForA11y1" id="add-log" >Add a daily log</button>
+          aria-controls="contentIdForA11y1" id="add-log" type="is-success">Add a daily log</b-button>
         <div>
           <div class="content">
             <section id="create-log-form" class="box">
-              <b-field label="Select a date">
+              <b-field label="Select a date" class="header-text">
                 <b-datepicker v-model="date"
                     :first-day-of-week="1"
                     placeholder="Select a date...">
@@ -97,7 +97,7 @@
                 <b-numberinput type="is-success" min=0 v-model="servings"></b-numberinput>
               </b-field>
               
-              <b-button type="is-success" v-on:click="createDailyLog" v-model="weekID">Add log for {{ weekID.week_number }}</b-button>
+              <b-button type="is-success" v-on:click="createDailyLog" v-model="weekID">Add log</b-button>
             </section>
           </div>
         </div>
@@ -383,6 +383,11 @@ body {
 #weekly-log {
   font-size: 400px;
 }
+
+.label {
+  font-size: 300px;
+}
+
 
 
 </style>

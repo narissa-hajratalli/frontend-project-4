@@ -47,6 +47,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&display=swap');
 
 .header {
     width: 90%;
@@ -54,8 +55,9 @@ export default {
 }
 
 .header-text {
-  color:green;
-  font-family: 'Satisfy', cursive;
+  color:teal;
+  font-family: 'Lobster Two', cursive;
+  font-size: 25px
 }
 
 </style>

@@ -11,7 +11,7 @@
             </b-input>
         </b-field>
       <br/>
-      <button class="button is-danger" @click="handleLogin">Login</button>
+      <b-button class="button is-danger" type="is-success is-light" @click="handleLogin">Login</b-button>
   </div>
   
 
