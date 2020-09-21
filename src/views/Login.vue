@@ -32,7 +32,7 @@ export default {
     if (getLogin) {
         this.user = getLogin.user
         this.token = getLogin.token
-        this.loggedin = true
+        // this.loggedin = true
     }
   },
   methods: {
