@@ -48,16 +48,20 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
 .header {
     width: 90%;
     margin: 10px auto
 }
 
 .header-text {
-  color:teal;
-  font-family: 'Lobster Two', cursive;
+  color:white;
+  font-family: 'Caveat', cursive;
   font-size: 25px
 }
 
+.navbar-menu {
+  background-color: teal;
+  border-radius: 10px;
+}
 </style>
