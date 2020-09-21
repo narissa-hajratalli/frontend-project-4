@@ -136,7 +136,7 @@
         
               <!----------- Update servings field ----------> 
             
-              <b-field label="Update daily servings">
+              <b-field class="header-text-card" label="Update daily servings">
                   <b-field grouped>
                       <b-numberinput min="0" v-bind:id="dailyLog.id" v-model="updateServings" expanded/>
                   </b-field>
@@ -341,7 +341,8 @@ export default {
 
 <style>
 body {
-  background-color: rgb(238, 255, 217);
+  /* background-color: rgb(238, 255, 217); */
+  background-image: url("https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600731815/Project%203%20-%20leaft/Vintage_Floral_Frame_Desktop_Wallpaper_ti3z11.png");
 }
 
 #add-log {
@@ -394,6 +395,7 @@ body {
   font-family: 'Caveat', cursive;
   font-size: 30px
 }
+
 
 
 
