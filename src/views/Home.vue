@@ -204,7 +204,7 @@ export default {
     console.log(`this is the url ${URL}`)
 
     //API CALL - fetches all the weeks in the database
-    fetch(`${URL}/meat_consumption/weekly_consumption/`, {
+    fetch("https://leaft.netlify.app/meat_consumption/weekly_consumption/", {
       method: 'get',
       headers: {
         'authorization': `JWT ${token}`
