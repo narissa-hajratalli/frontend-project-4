@@ -2,7 +2,7 @@
   <div id="app">
     <Header v-bind:URL="URL" v-bind:loggedIn="loggedIn" @logout="logout"/> <!-- Header is a component and it is basically inserted as if it were an html tag-->
     <router-view @loggedIn="login($event)"/>
-    <Footer/>
+    <!-- <Footer/> -->
   </div>
 </template>
 
@@ -13,7 +13,7 @@
 // importing components from their respective .vue files
 // so they can be used here
 import Header from './components/Header' 
-import Footer from './components/Footer'
+// import Footer from './components/Footer'
 
 // This is where the Vue instance will live
 // This is exporting out the Vue instance, so it can be used in other components
@@ -25,7 +25,7 @@ export default {
   // This "registers" the components
   components: {
     Header,
-    Footer
+    // Footer
   },
 
   /////////////////////////////////////////////////////////

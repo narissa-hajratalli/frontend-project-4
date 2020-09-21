@@ -10,7 +10,7 @@
     <!----------- DROPDOWN AREA ----------> 
     <section id="dropdown-area">
         <!----------- Dropdown menu with weeks ----------> 
-        <b-field label="Select a Weekly Log">
+        <b-field class="header-text" label="Select a Weekly Log">
             <b-select v-model="weekID" placeholder="Select a week" id="dropdown">
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
@@ -37,9 +37,9 @@
                     aria-controls="contentIdForA11y1">Add</button>
                 <div class="notification">
                     <div class="content">
-                        <h4>
+                        <h2 class="header-text">
                             New Week
-                        </h4>
+                        </h2>
                         <b-field>
                           <b-field grouped>
                       
@@ -63,7 +63,7 @@
         <button
           class="button is-primary"
           slot="trigger"
-          aria-controls="contentIdForA11y1" id="add-log">Add a daily log</button>
+          aria-controls="contentIdForA11y1" id="add-log" >Add a daily log</button>
         <div>
           <div class="content">
             <section id="create-log-form" class="box">
@@ -86,14 +86,14 @@
                 </b-datepicker>
               </b-field>
 
-              <b-field label="Ate meat? Be honest; it's okay!">
+              <b-field class="header-text" label="Ate meat? (be honest; it's okay!)">
                 <b-select placeholder="Ate meat? Be honest--it's okay!" v-model="consumed">
                   <option>Yes</option>
                   <option>No</option>
                 </b-select>
               </b-field>
 
-              <b-field label="How many servings?">
+              <b-field class="header-text" label="How many servings?">
                 <b-numberinput type="is-success" min=0 v-model="servings"></b-numberinput>
               </b-field>
               
@@ -114,7 +114,7 @@
                 class="card-header"
                 role="button"
                 aria-controls="contentIdForA11y3">
-                <p class="card-header-title">
+                <p class="card-header-title header-text">
                   {{ `Date: ${dailyLog.day_consumed}` }}
                 </p>
                 <a class="card-header-icon">
@@ -380,6 +380,9 @@ body {
   margin: 0px auto
 }
 
+#weekly-log {
+  font-size: 400px;
+}
 
 
 </style>

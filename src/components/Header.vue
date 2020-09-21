@@ -24,7 +24,7 @@
             <a class="button is-primary">
               <!-- <router-link to="/signup">Sign Up</router-link> -->
             </a>
-            <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-bind:URL="URL" v-if="!loggedIn"><button class="button is-light">Login</button></router-link>
+            <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-bind:URL="URL" v-if="!loggedIn"><button class="button is-light header-text">Login</button></router-link>
             <router-link :to="{ name: 'Main', query: { URL: this.URL }}" v-bind:URL="URL" v-if="loggedIn"><button class="button is-light" @click="logout">Logout</button></router-link>
           </div>
         </b-navbar-item>
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style>
-
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
 .header {
     width: 90%;
@@ -55,6 +55,7 @@ export default {
 
 .header-text {
   color:green;
+  font-family: 'Satisfy', cursive;
 }
 
 </style>
