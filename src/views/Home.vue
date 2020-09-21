@@ -381,7 +381,7 @@ body {
 }
 
 #weekly-log {
-  font-size: 400px;
+  font-size: 40px;
 }
 
 .label {

@@ -24,8 +24,8 @@
             <!-- <a class="button is-primary">
               <router-link to="/signup">Sign Up</router-link>
             </a> -->
-            <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-bind:URL="URL" v-if="!loggedIn"><button class="button is-light header-text">Login</button></router-link>
-            <router-link :to="{ name: 'Main', query: { URL: this.URL }}" v-bind:URL="URL" v-if="loggedIn"><button class="button is-light" @click="logout">Logout</button></router-link>
+            <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-bind:URL="URL" v-if="!loggedIn"><b-button class="button is-light">Login</b-button></router-link>
+            <router-link :to="{ name: 'Main', query: { URL: this.URL }}" v-bind:URL="URL" v-if="loggedIn"><b-button class="button is-light" @click="logout">Logout</b-button></router-link>
           </div>
         </b-navbar-item>
       </template>
