@@ -204,7 +204,7 @@ export default {
     console.log(`this is the url ${URL}`)
 
     //API CALL - fetches all the weeks in the database
-    fetch("https://leaft.netlify.app/meat_consumption/weekly_consumption/", {
+    fetch(`${URL}/meat_consumption/weekly_consumption/`, {
       method: 'get',
       headers: {
         'authorization': `JWT ${token}`
@@ -244,7 +244,7 @@ export default {
   createDailyLog: function() {
     const { token, URL } = this.$route.query;
 
-      fetch(`${URL}/meat_consumption/daily_consumption/`, {
+      fetch(`https://backend-project4.herokuapp.com/meat_consumption/daily_consumption/`, {
         method: "post",
         headers: {
           'authorization': `JWT ${token}`,
