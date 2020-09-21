@@ -187,10 +187,10 @@ export default {
       console.log("create showWeeks running")
   },
 
-  // beforeCreate: function(){
-  //   this.$route.query.token = window.localStorage.getItem("token")
-  //   console.log("beforeCreate token running")
-  // },
+  beforeCreate: function(){
+    this.$route.query.token = window.localStorage.getItem("token")
+    console.log("beforeCreate token running")
+  },
 
 /////////////////////////////// METHODS /////////////////////////////////////////
 

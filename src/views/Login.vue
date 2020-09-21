@@ -27,13 +27,13 @@ export default {
       password: "",
     };
   },
-  // beforeCreate: function() {
-  //   const getLogin = JSON.parse(window.sessionStorage.getItem('login'))
-  //   if (getLogin) {
-  //       this.user = getLogin.user
-  //       this.token = getLogin.token
-  //       // this.loggedin = true
-  //   }
+  beforeCreate: function() {
+    const getLogin = JSON.parse(window.sessionStorage.getItem('login'))
+    if (getLogin) {
+        this.user = getLogin.user
+        this.token = getLogin.token
+        // this.loggedin = true
+    }
   },
   methods: {
     handleLogin: function() {

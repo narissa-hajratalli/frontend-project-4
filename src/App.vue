@@ -34,15 +34,15 @@ export default {
     return {
       loggedIn: false,
       token: "",
-      URL: 'https://backend-project4.herokuapp.com'
+      URL: 'http://localhost:8000'
       // https://backend-project4.herokuapp.com'
     }
   },
 
-  // beforeMount: function(){
-  //   this.token = window.localStorage.getItem("token")
-  //   this.loggedIn = true
-  // },
+  beforeMount: function(){
+    this.token = window.localStorage.getItem("token")
+    this.loggedIn = true
+  },
   /////////////////////////////////////////////////////////
   // Methods 
   methods: {
