@@ -183,8 +183,10 @@ export default {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////// FILL DROPDOWN BEFORE ANYTHING //////
   created() {
+    if (this.token) {
       this.showWeeks()
       console.log("create showWeeks running")
+    }
   }, 
 
   beforeCreate: function(){
