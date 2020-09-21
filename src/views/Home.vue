@@ -182,15 +182,15 @@ export default {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////// FILL DROPDOWN BEFORE ANYTHING //////
-  created() {
+  created: function() {
       this.showWeeks()
       console.log("create showWeeks running")
   },
 
-  beforeCreate: function(){
-    this.$route.query.token = window.localStorage.getItem("token")
-    console.log("beforeCreate token running")
-  },
+  // beforeCreate: function(){
+  //   this.$route.query.token = window.localStorage.getItem("token")
+  //   console.log("beforeCreate token running")
+  // },
 
 /////////////////////////////// METHODS /////////////////////////////////////////
 
@@ -203,7 +203,7 @@ export default {
     const {token, URL} = this.$route.query
 
     //API CALL - fetches all the weeks in the database
-    fetch("https://backend-project4.herokuapp.com/meat_consumption/weekly_consumption/", {
+    fetch(`${URL}/meat_consumption/weekly_consumption/`, {
       method: 'get',
       headers: {
         'authorization': `JWT ${token}`
