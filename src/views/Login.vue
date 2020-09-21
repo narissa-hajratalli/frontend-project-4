@@ -27,6 +27,14 @@ export default {
       password: "",
     };
   },
+  beforeCreate: function() {
+    const getLogin = JSON.parse(window.sessionStorage.getItem('login'))
+    if (getLogin) {
+        this.user = getLogin.user
+        this.token = getLogin.token
+        this.loggedin = true
+    }
+  },
   methods: {
     handleLogin: function() {
       fetch(`${this.$route.query.URL}/auth/users/login/`,  {
@@ -54,9 +62,7 @@ export default {
           alert('Incorrect Login')
         }
       })
-    },
-////// MORE FUNCTIONS HERE ////
-
+    }
   },
 }
 </script>

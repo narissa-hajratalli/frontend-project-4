@@ -1,6 +1,9 @@
 <template>
   <div class="about-sustainability">
-      <h1> ABOUT sustainability </h1>
+      <h1> What is sustainability? </h1>
+
+      <h2>Is it possible to eat meat sustainably?</h2> 
+      <p>Eating meat is not bad--you can still eat meat in a sustainable way.</p>
   </div>
 </template>
 
@@ -8,6 +11,9 @@
 
 
 export default {
-  name: 'AboutSustaiability'
+  name: 'AboutSustaiability',
+  created: function() {
+    this.$route.query.token = window.localStorage.getItem("token")
+  }
 }
 </script>

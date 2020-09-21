@@ -34,10 +34,14 @@ export default {
     return {
       loggedIn: false,
       token: "",
-      URL: 'http://localhost:8000'
+      URL: 'https://backend-project4.herokuapp.com'
     }
   },
 
+  beforeMount: function(){
+    this.token = window.localStorage.getItem("token")
+    this.loggedIn = true
+  },
   /////////////////////////////////////////////////////////
   // Methods 
   methods: {
@@ -46,11 +50,16 @@ export default {
       this.loggedIn = true
       this.token = event.token
       console.log(event)
-      this.$router.push({ path: "Home", query: { token: this.token, URL: this.URL } })
+      this.$router.push({ 
+        path: "Home", 
+        query: { token: this.token, URL: this.URL } 
+        })
+      window.localStorage.setItem("token", this.token)
     },
     logout: function(){
       this.loggedIn = false;
       this.token = ""
+      this.$router.push('/')
     }
   }
   

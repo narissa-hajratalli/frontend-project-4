@@ -11,7 +11,7 @@
     <section id="dropdown-area">
         <!----------- Dropdown menu with weeks ----------> 
         <b-field label="Select a Weekly Log">
-            <b-select v-model="weekID" placeholder="Select a week">
+            <b-select v-model="weekID" placeholder="Select a week" id="dropdown">
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
                 <!-- also making each field in the dropdown menu associate with the week's id --> 
@@ -182,8 +182,14 @@ export default {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////// FILL DROPDOWN BEFORE ANYTHING //////
-  created: function() {
-    this.showWeeks()
+  created() {
+      this.showWeeks()
+      console.log("create showWeeks running")
+  }, 
+
+  beforeCreate: function(){
+    this.$route.query.token = window.localStorage.getItem("token")
+    console.log("beforeCreate token running")
   },
 
 /////////////////////////////// METHODS /////////////////////////////////////////
@@ -209,6 +215,8 @@ export default {
       // console.log(data)
       // console.log(this.weekID)
     })
+    console.log('im running')
+
   },
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -366,6 +374,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   padding: 30px
+}
+
+#field {
+  margin: 0px auto
 }
 
 
