@@ -130,7 +130,8 @@
                 <div class="content log-content" v-bind:id="dailyLog.id">
                   {{ 
                   `
-                  Consumed meat?: ${dailyLog.consumed} \
+                  Consumed meat?: ${dailyLog.consumed}
+                  
                   Daily Servings: ${dailyLog.daily_servings}
                   `
                  }}
