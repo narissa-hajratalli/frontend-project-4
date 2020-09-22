@@ -83,11 +83,39 @@ For the frontend application, I would like to have a weekly tracker so the user 
 - [Additional Resources](https://docs.google.com/spreadsheets/d/1laHGT9kh-9N0061Kmw5pyd3lF4BJ7Na-DrvCe5UXskQ/edit#gid=0)
 
 ## Code Snippets
+#### Binding the value of the id of the week in the dropdown menu with the select field and the find button, so that the user can find all the logs associated with one week.
+
+HTML
+```
+<b-button type="is-success" v-on:click="findDailyLogs" v-model="weekID">Find</b-button>
+```
+
+JavaScript
+```
+  //////////////// FIND ALL THE DAILY LOGS ASSOCIATED WITH ONE WEEK ///////////////
+  //// will be attached to the "Find" button in the form of an on-click event 
+  findDailyLogs: async function() {   
+      // Grabs the token and the URL
+      const {token, URL} = this.$route.query
+
+      // API CALL - fetches the days in the database that belong to one week
+      fetch(`${URL}/meat_consumption/weekly_consumption/${this.weekID}/daily_consumption`, {
+        method: 'get',
+        headers: {
+          'authorization': `JWT ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.dailyLogs = data
+      })
+    },
+```
 
 ## Issues and Resolutions
 
 ####
-Issues: CORS error when trying to perform patch request. Tested and working in Postman but not working in the browser
+Issue: CORS error when trying to perform patch request. Tested and working in Postman but not working in the browser
 
 ```
 Access to fetch at 'https://backend-project4.herokuapp.com/meat_consumption/daily_consumption/2/' from origin 'http://localhost:8080' has been blocked by CORS policy: Request header field access-control-allow-origin is not allowed by Access-Control-Allow-Headers in preflight response.
@@ -101,7 +129,7 @@ editServings: function(event) {
 
       // Patch request--fetching one log by it's id
       fetch(`${URL}/meat_consumption/daily_consumption/${id}/`, {
-        method: "patch",
+        method: "PATCH",
         headers: {
           authorization: `JWT ${token}`,
           "Content-Type": "application/json"
