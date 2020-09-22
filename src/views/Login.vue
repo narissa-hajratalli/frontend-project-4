@@ -11,7 +11,7 @@
             </b-input>
         </b-field>
       <br/>
-      <b-button class="button is-danger" type="is-success is-light" @click="handleLogin">Login</b-button>
+      <b-button type="is-success is-light" @click="handleLogin" id="login-btn">Login</b-button>
   </div>
   
 
@@ -55,14 +55,12 @@ export default {
         }
       })
       .then(data => {
-        console.log('data', data)
         if(data){
           this.$emit('loggedIn', data)
         } else {
           alert('Incorrect Login')
         }
       })
-      console.log(`${this.$route.query.URL}/auth/users/login/`)
     }
   },
 }
@@ -73,5 +71,10 @@ export default {
   .login {
     width: 40%;
     margin: 10px auto
+  }
+
+  #login-btn {
+    padding: 10px;
+    margin-bottom: 70px;
   }
 </style>

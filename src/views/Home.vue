@@ -161,7 +161,7 @@
 
     <!----------- DISPLAY WEEKLY TOTAL ---------->
     <section id="weekly-total">
-        <h1 v-if="dailyLogs.length >= 1">{{ `Your weekly total: ${dailyLogs[0].weekly_total} servings`}}</h1>
+        <h1 v-if="dailyLogs.length >= 1" id="weekly-total" class="box">{{ `Your weekly total: ${dailyLogs[0].weekly_total} servings`}}</h1>
     </section> 
 
   </div>
@@ -189,12 +189,12 @@ export default {
   ///////// FILL DROPDOWN BEFORE ANYTHING //////
   created: function() {
       this.showWeeks()
-      console.log("create showWeeks running")
+      // console.log("create showWeeks running")
   },
 
   beforeCreate: function(){
     this.$route.query.token = window.localStorage.getItem("token")
-    console.log("beforeCreate token running")
+    // console.log("beforeCreate token running")
   },
 
 /////////////////////////////// METHODS /////////////////////////////////////////
@@ -217,11 +217,7 @@ export default {
     .then(response => response.json())
     .then(data => {
       this.weeks = data
-      // console.log(data)
-      // console.log(this.weekID)
     })
-    console.log('im running')
-
   },
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -238,7 +234,6 @@ export default {
         body: JSON.stringify({ 
             week_number: this.weekNumber}),
       }).then(() => {
-        // console.log(this.weekNumber)
         this.showWeeks()
       })
     },
@@ -262,12 +257,7 @@ export default {
 
          }),
       }).then(() => {
-        // console.log(`${URL}/meat_consumption/weekly_consumption/${this.weekID}/daily_consumption`)
-        // console.log(this.consumed)
-        // console.log(this.servings)
-        // console.log(this.date)
-        // console.log(this.weekID)
-        // this.dailyLogs = data
+
         this.findDailyLogs();
       });
   },
@@ -289,7 +279,6 @@ export default {
       .then(response => response.json())
       .then(data => {
         this.dailyLogs = data
-        // console.log(data)
       })
     },
   /////////////////////////////////////////////////////////////////////////
@@ -309,7 +298,7 @@ export default {
         },
 
       // Delete method performed, then re-populate the screen with the remaining logs 
-      // so the user doesn't have to request
+      // so the user doesn't have to refresh
       }).then(() => {
         this.findDailyLogs()
       })
@@ -318,35 +307,36 @@ export default {
   /////////////////////////////////////////////////////////////////////////
   //////////////// UPDATE ONE DAILY LOG ///////////////
   editServings: function(event) {
-      const { token, URL } = this.$route.query;
+      const { URL, token } = this.$route.query;
+      const daily = {
+        daily_servings: this.updateServings
+      }
+      console.log(daily)
 
       const id = event.target.id;
-      // console.log(id)
-
+ 
       // Patch request--fetching one log by it's id
       fetch(`${URL}/meat_consumption/daily_consumption/${id}/`, {
-        method: "patch",
+        method: "PATCH",
         headers: {
-          authorization: `JWT ${token}`,
+          "authorization": `JWT ${token}`,
+          // 'Access-Control-Allow-Origin':'*',
           "Content-Type": "application/json"
         },
         // used v-model on the input field to make the number value the user inputs
         // equal to this.updateServings and using that as the new valur for servings
-        body: JSON.stringify({
-          daily_servings: this.updateServings
-          })
+        body: JSON.stringify(daily)
       }).then(() => {
+        console.log(daily)
         this.findDailyLogs();
       });
-      console.log(`${URL}/meat_consumption/daily_consumption/${id}/`)
-    },
+    }
   }
 }
 </script>
 
 <style>
 body {
-  /* background-color: rgb(238, 255, 217); */
   background-image: url("https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600731815/Project%203%20-%20leaft/Vintage_Floral_Frame_Desktop_Wallpaper_ti3z11.png");
 }
 
@@ -355,7 +345,6 @@ body {
 }
 
 #dropdown {
-  /* width: 100%; */
   margin: auto;
   display: flex;
   flex-direction: row;
@@ -363,7 +352,6 @@ body {
 }
 
 #create-log-form {
-  /* border: 1px black solid; */
   width: 50vw;
   max-width: 500px;
   min-width: 300px;
@@ -371,7 +359,6 @@ body {
   flex-direction: column;
   margin: 0px auto;
   box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02)
-  /* background-image: url("https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600536028/Project%203%20-%20leaft/Untitled_design_copy_zzi5gz.png") */
 }
 
 .daily-logs {
@@ -401,6 +388,15 @@ body {
 .header-text-select, .header-text-home, .label {
   font-family: 'Caveat', cursive;
   font-size: 25px
+}
+
+#weekly-total {
+  width: 60%;
+  font-family: 'Caveat', cursive;
+  font-size: 25px;
+  margin-bottom: 35px;
+  margin: auto;
+  box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02)
 }
 
 
