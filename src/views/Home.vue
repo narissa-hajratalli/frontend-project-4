@@ -8,10 +8,10 @@
 <!---------------------------------------------------------------------------------------------------------------> 
 
     <!----------- DROPDOWN AREA ----------> 
-    <section id="dropdown-area">
+    <div id="dropdown">
         <!----------- Dropdown menu with weeks ----------> 
         <b-field class="header-text-select small-headers" label="Select a Weekly Log">
-            <b-select v-model="weekID" placeholder="Select a week" id="dropdown">
+            <b-select v-model="weekID" placeholder="Select a week">
                 <!-- v-for directive loops over all the weeks in the database --> 
                 <!-- and populates each week in the dropdown menu --> 
                 <!-- also making each field in the dropdown menu associate with the week's id --> 
@@ -27,12 +27,13 @@
               </b-select>
 
             <!----------- Find button ---------->                
+            
             <b-button type="is-success" v-on:click="findDailyLogs" v-model="weekID">Find</b-button>
 
             <!----------- Add a week button / input field ---------->  
             <b-collapse :open="false" aria-id="contentIdForA11y1">
                 <b-button
-                    class="button is-primary"
+                    class="button btn-outline-succes"
                     slot="trigger"
                     aria-controls="contentIdForA11y1" type="is-success is-light">Add</b-button>
                 <div class="notification">
@@ -52,9 +53,10 @@
                     </div>
                 </div>
             </b-collapse>
+            
 
       </b-field>
-    </section>
+      </div>
 
 <!--------------------------------------------------------------------------------------------------------------->
   <!----------- CREATE INPUT FIELDS ----------->
@@ -72,7 +74,7 @@
                     :first-day-of-week="1"
                     placeholder="Select a date...">
 
-                    <button class="button is-primary"
+                    <button class="button is-success"
                         @click="date = new Date()">
                         <b-icon icon="calendar-today"></b-icon>
                         <span>Today</span>
@@ -106,6 +108,7 @@
 <!---------------------------------------------------------------------------------------------------------------> 
 
       <!----------- CARDS WITH DAILY LOGS ----------> 
+      <div class="daily-logs-box">
         <section v-for="dailyLog of dailyLogs" v-bind:key="dailyLog.id" v-bind:id="dailyLog.id" class="daily-logs"> 
           <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
             <div
@@ -127,7 +130,7 @@
                 <div class="content log-content" v-bind:id="dailyLog.id">
                   {{ 
                   `
-                  Consumed meat?: ${dailyLog.consumed}
+                  Consumed meat?: ${dailyLog.consumed} \
                   Daily Servings: ${dailyLog.daily_servings}
                   `
                  }}
@@ -151,6 +154,7 @@
             </footer>
         </b-collapse>
       </section>
+    </div>
 
 <!--------------------------------------------------------------------------------------------------------------->
 
@@ -349,9 +353,14 @@ body {
   margin: 30px;
 }
 
-#dropdown-area {
-  margin: 0 auto
+#dropdown {
+  /* width: 100%; */
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
+
 #create-log-form {
   /* border: 1px black solid; */
   width: 50vw;
@@ -364,18 +373,14 @@ body {
   /* background-image: url("https://res.cloudinary.com/ds7vqqwb8/image/upload/v1600536028/Project%203%20-%20leaft/Untitled_design_copy_zzi5gz.png") */
 }
 
-#week-dropdown {
-  /* margin-bottom: 30px; */
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-}
-
 .daily-logs {
   max-width: 400px;
+  padding: 30px
+}
+
+.daily-logs-box {
   display: flex;
   flex-wrap: wrap;
-  padding: 30px
 }
 
 #field {
@@ -386,16 +391,16 @@ body {
   font-size: 40px;
 }
 
-.header-text-select {
-  font-size: 40px;
-  font-family: 'Caveat', cursive;
-}
 
 .header-text-card {
   font-family: 'Caveat', cursive;
   font-size: 30px
 }
 
+.header-text-select, .header-text-home, .label {
+  font-family: 'Caveat', cursive;
+  font-size: 25px
+}
 
 
 
